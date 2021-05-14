@@ -1,0 +1,39 @@
+:root {
+    /*background color en bleu*/
+    --body-bg: steelblue;
+    /*couleur du texte des menus, et couleur du profil sur la droite*/
+    --text-color-dark: darkblue;
+    --text-color-light: white;
+    /*background du header et footer du tableau en rouge*/
+    --table-header-bg: tomato;
+    --table-footer-bg: tomato;
+    /*background en passant dessus les lignes du tableaux*/
+    --form-bg: oldlace;
+    /*couleur du vouton ajout en haut a droite*/
+    --color-primary: darkseagreen;
+    /*couleur de la pagination*/
+    --gray-500: aliceblue;
+    /*couleur du titre su site en haut a gauche*/
+    --text-color: honeydew;
+    /*les bords du tableau ou de barre recherche arrondi*/
+    --border-radius: 15px;
+    /*les bordures du tableau interne, largeur et style*/
+    --border-width: 5px;
+    --border-style: dashed;
+}
+
+/*ajout de css pour le formulaire add crud*/
+.form-control{
+    background-color: steelblue;
+    color: black;
+}
+.form-control:focus{
+    background-color: steelblue;
+    color: black;
+}
+.form-control-label.required{
+    color: steelblue;
+}
+.form-control-label.required:focus{
+    color: steelblue;
+}

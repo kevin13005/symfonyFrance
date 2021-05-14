@@ -1,0 +1,24 @@
+# See dos how to configure the bundle: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
+liip_imagine:
+    # valid drivers options include "gd" or "gmagick" or "imagick"
+    driver: "gd"
+
+    filter_sets:
+        # nom du filtre a mentionner dans twig
+        drapeau:
+            quality: 75
+            # liste des filtres a appliquer
+            filters:
+                # on fait un filtre sur une image
+                thumbnail: 
+                    size: [930, 630]
+                    mode: outbound
+        region:
+            quality: 75
+            # liste des filtres a appliquer
+            filters:
+                # on fait un filtre sur une image
+                scale: 
+                    dim: [500, 651]
+
+

@@ -1,0 +1,41 @@
+{% extends 'offre.html.twig' %}
+
+    {% block title %} {{ regions.nom }}{% endblock %}
+           
+{% block body %}
+
+            
+<div id="corps">
+    <div id="image_paca">
+       <img src="{{ vich_uploader_asset(regions, 'imageFile') | imagine_filter('drapeau') }}"/>
+    </div>
+
+
+
+    
+    
+
+   
+
+    <div id="categorie_paca">
+        {% for offre in offres %}
+        <div class="card text-white manger">
+           <img src="{{ vich_uploader_asset(offre, 'imageFile', 'App\\Entity\\Offre') }}" class="card-img" alt="">
+           <div class="card-img-overlay">
+             <h5 class="card-title">{{ offre.titre }}</h5>
+             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+           </div>
+        </div>
+        {% endfor %}
+         
+    </div>
+</div>
+<div id="nav-bas">
+       <p></p>
+</div>
+
+
+    
+        
+{% endblock %}
+    
