@@ -25,7 +25,7 @@ class OffreRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('o');
 
         $query
-            ->select('o.titre, o.image')
+            ->select('o.titre, o.image, o.id')
             ->join('o.regions', 'r')
             ->where('r.slug = :slug')
             ->setParameter('slug', $slug);

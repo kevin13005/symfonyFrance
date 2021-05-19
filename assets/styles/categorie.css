@@ -1,0 +1,265 @@
+/*----------------------------------------CSS Categorie--------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------*/
+
+/*------------------- disposition generale avec nos 3 partie, haut, milieu, bas-----------------------------*/
+/*-----------------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------*/
+
+/*importation apres commande yarn, de font-awesome avec ces 4 @import*/
+@import '~@fortawesome/fontawesome-free/css/fontawesome.css';
+@import '~@fortawesome/fontawesome-free/css/regular.css';
+@import '~@fortawesome/fontawesome-free/css/solid.css';
+@import '~@fortawesome/fontawesome-free/css/brands.css';
+@import "~bootstrap/dist/css/bootstrap.css";
+
+html, body{
+    height:100%;
+    width: 100%;
+    margin :0px;
+    padding: 0px
+}
+
+.contain{
+    width: 100%;
+    height: 2000px;
+    display: flex;
+    flex-direction: column;
+}
+@media (max-width: 576px){
+    .contain{
+        flex-direction: column;
+    }
+}
+
+#corps{
+    width: 100%;
+    height: 1700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+@media (max-width: 576px){
+    #corps{
+        flex-direction: column;
+        width: 100%;
+        height: 725px;
+    }
+}
+#nav-bas{
+    width: 100%;
+    height: 150px;
+    background-color: #FFFFFF;
+}
+@media (max-width: 576px){
+    #nav-bas{
+        width: 100%;
+        height: 100px;
+    }
+}
+
+
+/*---------------------------------nabvar----------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------*/
+
+#navbar{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+    font-family: Brush Script MT;
+}
+
+/*le logo*/
+.logo{
+    display: flex;
+    width: 300px;
+    padding: 15px;
+    color: black;
+    font-family: Brush Script MT;
+}
+@media (max-width: 576px){
+    .logo{
+        width: 80px;
+        font-size: 15px;
+        justify-content: flex-end;
+    }
+}
+@media (max-width: 1200px){
+    .logo{
+        width: 80px;
+        font-size: 15px;
+        justify-content: flex-end;
+    }
+}
+/*le hamburger*/
+.hamburger{
+    display: none;
+    background-color: transparent;
+    border: 0;
+    color: black;
+    cursor: pointer;
+    font-size: 30px;
+    padding-right: 15px;
+}
+@media (max-width: 576px){
+    .hamburger{
+        display: block;
+    }
+}
+@media (max-width: 1200px){
+    .hamburger{
+        display: block;
+    }
+}
+.hamburger:focus{
+    outline: none;
+}
+
+/*2eme liste avec les regions*/
+.nav-ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+    font-family: Brush Script MT;
+    font-size: 30px;
+}
+@media (max-width: 576px){
+    .nav-ul{
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+    .nav-ul.show{
+        display: flex;
+        background-color: white;
+        z-index: 1;
+    }
+}
+@media (max-width: 1200px){
+    .nav-ul{
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+    .nav-ul.show{
+        display: flex;
+        background-color: white;
+        z-index: 1;
+    }
+}
+.nav-ul li a{
+    display: inline-block;
+    color: black;
+    font-family: sans-serif;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-family: Brush Script MT;
+}
+@media (max-width: 576px){
+    .nav-ul li a{
+        padding: 10px;
+    }
+}
+
+/*1ere liste avec formulaire et icones*/
+.icones{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+}
+.icones li form, .icones li i{
+    display: inline-block;
+    padding: 10px 20px;
+}
+@media (max-width: 576px){
+    .icones li form, .icones li i{
+        padding: 10px 10px;
+    }
+}
+#navbar form{
+    display:flex;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+@media(max-width: 576px){
+    #navbar form{
+        border: 1px solid black;
+        background: none;
+        transition: width 2s;
+    }
+    #navbar form.show{
+        width: 75%;
+        animation: formulaireAnim 1s;
+    }
+}
+@media(max-width: 1200px){
+    #navbar form{
+        border: 1px solid black;
+        background: none;
+        transition: width 2s;
+    }
+    #navbar form.show{
+        width: 75%;
+        animation: formulaireAnim 1s;
+    }
+}
+@keyframes formulaireAnim {
+    from{ width: 0% }
+    to{ width: 75%
+    }
+}
+.searchbar{
+    width: 85%;
+    background: none;
+    border: none;
+    color: black;
+    font-size: 15px;
+    font-weight: 500;
+}
+.searchbar:focus{
+    outline:none;
+}
+@media(max-width: 576px){
+    .searchbar{
+        display: none;
+    }
+    .searchbar.show{
+        display: flex;
+        z-index: 1;
+    }
+}
+@media(max-width: 1200px){
+    .searchbar{
+        display: none;
+    }
+    .searchbar.show{
+        display: flex;
+        z-index: 1;
+    }
+}
+#searchbutton{
+    width: 15%;
+    background: none;
+    color: black;
+    border: none;
+}
+@media(max-width: 576px){
+    #searchbutton{
+        color: black;
+        cursor:pointer;
+    }
+}
+@media(max-width: 1200px){
+    #searchbutton{
+        color: black;
+        cursor:pointer;
+    }
+}

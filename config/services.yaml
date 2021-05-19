@@ -6,6 +6,7 @@
 parameters:
     region_images: /uploads/region
     offre_images: /uploads/offre
+    article_images: /uploads/article
 
 services:
     # default configuration for services in *this* file

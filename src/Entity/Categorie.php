@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\CategorieRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CategorieRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=CategorieRepository::class)
+ * 
  */
 class Categorie
 {
@@ -31,6 +33,7 @@ class Categorie
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      */
     private $image;
 

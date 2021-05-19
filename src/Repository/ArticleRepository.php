@@ -19,6 +19,21 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    public function getArticleFirstCategorieDeLoffre($titre){
+        $query = $this->createQueryBuilder('a');
+
+        $query
+            ->select('a.titre, a.contenu, a.image')
+            ->join('a.categorie', 'c')
+            ->where('c.titre = :titre')
+            ->setParameter('titre', $titre);
+
+        $resultat = $query->getQuery();
+        return $resultat->getResult();
+
+        
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

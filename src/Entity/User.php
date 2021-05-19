@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -43,7 +45,12 @@ class User implements UserInterface
      /**
       * @ORM\Column(type="boolean")
       */
-     private $isVerified = false;
+    private $isVerified = false;
+
+     /**
+      * @ORM\OneToMany(targetEntity=ContactClient::class, mappedBy="user")
+      */
+    private $contactClients;
 
 
     public function getId(): ?int
@@ -152,6 +159,37 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    
+    /**
+     * @return Collection|ContactClient[]
+     */
+    public function getContactClients(): Collection
+    {
+        return $this->contactClients;
+    }
+
+    public function addContactClient(ContactClient $contactClient): self
+    {
+        if (!$this->contactClients->contains($contactClient)) {
+            $this->contactClients[] = $contactClient;
+            $contactClient->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContactClient(ContactClient $contactClient): self
+    {
+        if ($this->contactClients->removeElement($contactClient)) {
+            // set the owning side to null (unless already changed)
+            if ($contactClient->getUser() === $this) {
+                $contactClient->setUser(null);
+            }
+        }
 
         return $this;
     }

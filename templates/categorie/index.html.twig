@@ -1,0 +1,64 @@
+{% extends 'categorie.html.twig' %}
+
+{% block title %}Hello CategorieController!{% endblock %}
+
+{% block body %}
+
+    
+        
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-12 mb-3">
+                    <h3 class="ps-5">manger paca</h3>
+                </div>
+
+                <div class="col-4">
+                    <ul class="list-group">
+                        {% for categorieoffre in categorieDansOffres %}
+                        <li class="list-group-item">{{ categorieoffre.titre }}</li>
+                        {% endfor %}
+                      </ul>
+                </div>
+
+                <div class="col-8">
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="d-grid gap-2 d-md-block">
+                                <button class="btn btn-primary" type="button">Button</button>
+                                <button class="btn btn-primary" type="button">Button</button>
+                                <button class="btn btn-primary" type="button">Button</button>
+                                <button class="btn btn-primary" type="button">Button</button>
+                                <button class="btn btn-primary" type="button">Button</button>
+                                <button class="btn btn-primary" type="button">Button</button>
+                              </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                      {% for article in articles %}
+                        <div class="col">
+                          <div class="card h-100">
+                            <img src="{{ vich_uploader_asset(article, 'imageFile', 'App\\Entity\\Article') }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">{{ article.titre }}</h5>
+                              <p class="card-text">{{ article.contenu|striptags|raw }}</p>
+                            </div>
+                            <div class="card-footer">
+                              <small class="text-muted">Last updated 3 mins ago</small>
+                            </div>
+                          </div>
+                        </div>
+
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+
+{% endblock %}

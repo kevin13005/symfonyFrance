@@ -4,10 +4,13 @@ namespace App\Entity;
 
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @Vich\Uploadable
  */
 class Article
 {
@@ -33,6 +36,19 @@ class Article
      */
     private $image;
 
+     /**
+     * @Vich\UploadableField(mapping="article_images", fileNameProperty="image")
+     * 
+     * @var File|null
+     */
+    private $imageFile;
+
+     /**
+     * @ORM\Column(type="datetime")
+     *
+     */
+    private $updatedAt;
+
     /**
      * @ORM\Column(type="datetime")
      */
@@ -43,6 +59,11 @@ class Article
      * @ORM\JoinColumn(nullable=false)
      */
     private $categorie;
+
+    public function __construct()
+    {
+        $this->updatedAt = new \DateTime();
+    }
 
      /**
      * @ORM\PrePersist
@@ -91,10 +112,37 @@ class Article
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 
+        return $this;
+    }
+
+    
+     /**
+     * @return $mixed
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+     /**
+     *@param File|null $imageFile
+     *@return $this
+     */
+    public function setImageFile(File $imageFile): self
+    {
+        $this->imageFile = $imageFile;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if (null !== $imageFile) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
         return $this;
     }
 

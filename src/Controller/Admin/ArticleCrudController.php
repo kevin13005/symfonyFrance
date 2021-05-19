@@ -4,9 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\Article;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -45,13 +48,24 @@ class ArticleCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-    return [
+        //pour l'upload des images , on fixe comme ca les choses
+        $imagefile = TextareaField::new('imageFile')->setFormType(VichImageType::class);
+        $image = ImageField::new('image')->setBasePath('uploads/article');
+
+    $fields = [
         IdField::new('id')->hideOnForm(),
         TextField::new('titre'),
         TextEditorField::new('contenu'),
-        TextField::new('image'),
         DateTimeField::new('createdAt'),
         AssociationField::new('categorie'),
     ];
+
+    //on affiche imagefile ou image selon la page pour pas avoir de bugs
+    if($pageName == crud::PAGE_INDEX || $pageName == crud::PAGE_DETAIL){
+        $fields[] = $image;
+    }else{
+        $fields[] = $imagefile;
+    }
+    return $fields;
     }
 }
