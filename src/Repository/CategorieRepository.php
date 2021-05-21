@@ -23,7 +23,7 @@ class CategorieRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('c');
 
         $query
-            ->select('c.titre')
+            ->select('c.titre, c.id')
             ->join('c.offre', 'o')
             ->where('o.id = :id')
             ->setParameter('id', $id);

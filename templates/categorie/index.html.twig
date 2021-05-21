@@ -17,7 +17,8 @@
                 <div class="col-4">
                     <ul class="list-group">
                         {% for categorieoffre in categorieDansOffres %}
-                        <li class="list-group-item">{{ categorieoffre.titre }}</li>
+                        <a href="{{ path('article', { id1: categorieoffre.id, idoffre: idatransmettre }) }}">
+                        <li class="list-group-item">{{ categorieoffre.titre }}</li></a>
                         {% endfor %}
                       </ul>
                 </div>
@@ -53,8 +54,13 @@
                           </div>
                         </div>
 
-                        {% endfor %}
+                        {% endfor %}  
                     </div>
+
+                    <div class="row d-flex justify-content-center mt-5 text-end">
+                      {{ knp_pagination_render(articles, 'pagination.html.twig') }}
+                    </div>
+                    
                 </div>
             </div>
         </div>

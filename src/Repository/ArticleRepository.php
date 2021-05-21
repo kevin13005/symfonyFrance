@@ -34,6 +34,21 @@ class ArticleRepository extends ServiceEntityRepository
         
     }
 
+    public function getArticleCategorieDeLoffre($id){
+        $query = $this->createQueryBuilder('a');
+
+        $query
+            ->select('a.titre, a.contenu, a.image')
+            ->join('a.categorie', 'c')
+            ->where('c.id = :id')
+            ->setParameter('id', $id);
+
+        $resultat = $query->getQuery();
+        return $resultat->getResult();
+
+        
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
