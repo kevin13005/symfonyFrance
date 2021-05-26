@@ -26,9 +26,12 @@ class CarteController extends AbstractController
      */
     public function index(RegionRepository $regionRepository): Response
     {
-        return new Response($this->twig->render('carte/index.html.twig', [
+        $response = new Response($this->twig->render('carte/index.html.twig', [
             'region' => $regionRepository->findAll(),
         ]));
+
+        $response->setSharedMaxAge(3600);
+        return $response;
     }
     
     /**
