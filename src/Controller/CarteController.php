@@ -11,6 +11,8 @@ use App\Repository\CategorieRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class CarteController extends AbstractController
 {
@@ -26,12 +28,21 @@ class CarteController extends AbstractController
      */
     public function index(RegionRepository $regionRepository): Response
     {
-        $response = new Response($this->twig->render('carte/index.html.twig', [
-            'region' => $regionRepository->findAll(),
-        ]));
+        //mise en cache avec le systeme par defaut de symfony sans configurer cache.yml
+        $cache = new FilesystemAdapter();
+        //use est utilisé car $regionrepository est injecté comme une variable globale de la fontion principale
+        //dans cette fonction ci dessous qui est secondaire, si on fait pas ca , ca marche pas
+        $valeurStocker = $cache->get('my_cache_key', function (ItemInterface $item)use($regionRepository) {
+            $item->expiresAfter(10);
 
-        $response->setSharedMaxAge(3600);
-        return $response;
+            $requeteregion = $regionRepository->findAll();
+            return $requeteregion;
+        });
+
+        return new Response($this->twig->render('carte/index.html.twig', [
+            'region' => $valeurStocker,
+        ]));
+        
     }
     
     /**

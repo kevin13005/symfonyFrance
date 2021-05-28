@@ -12,7 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-
+/**
+ * @Route("/categorie")
+ */
 class CategorieController extends AbstractController
 {
     private $twig;
@@ -23,7 +25,7 @@ class CategorieController extends AbstractController
     }
 
     /**
-     * @Route("/categorie/{id}", name="categorie")
+     * @Route("/{id}", name="categorie")
      */
     public function index($id, CategorieRepository $categorieRepository, Offre $offre, ArticleRepository $articleRepository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -52,7 +54,7 @@ class CategorieController extends AbstractController
     }
 
     /**
-     * @Route("/cat/{id1}/{idoffre}", name="article")
+     * @Route("/{id1}/{idoffre}", name="article")
      */
     public function categorieList($id1, $idoffre, CategorieRepository $categorieRepository, ArticleRepository $articleRepository, PaginatorInterface $paginator, Request $request): Response
     {
