@@ -41,11 +41,22 @@ class ContactController extends AbstractController
             //pour envoyer notre mail(mailNotificationHandler)
            $this->dispatchMessage(new MailNotification($contactClient->getDescription(), $contactClient->getId(), $contactClient->getUser()->getEmail()));
 
+           $this->addFlash(
+            'notice',
+            'Ton mail a bien été envoyé!'
+            );
+
             return $this->redirectToRoute("contact");
+        }
+        if($form->isSubmitted() && !$form->isValid()){
+            $this->addFlash(
+                'error',
+                'Il y a un probleme, l envoi n est pas effectue !'
+                );
         }
 
         return $this->render('contact/contact.html.twig', [
-            'form' => $form->createView(),
+            'contactform' => $form->createView(),
             'controller_name' => 'ContactController',
         ]);
     }

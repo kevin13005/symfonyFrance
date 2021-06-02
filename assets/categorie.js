@@ -9,6 +9,7 @@
 import './styles/categorie.css';
 
 //importez bootstrap js
+// You can specify which plugins you need
 import './bootstrap';
 
 //import the menu javascript

@@ -4,11 +4,11 @@
        <i class="fas fa-bars" id="la"></i>
    </button>
 
-    <h3 class="logo">Mon logo</h3>
+   <a href="{{ path('carte_accueil') }}"><h3 class="logo">Mon logo</h3></a>
     <ul class="nav-ul" id="nav-ul">
        <li><a>Mon panier</a></li>
-        <li><a>Se connecter</a></li>
-        <li><a>inscription</a></li>
+        <li> <a href="{{ path('app_login') }}">Se connecter</a></li>
+        <li><a href="{{ path('app_register') }}">inscription</a></li>
     </ul>
     <ul class="icones">
        <li>
@@ -21,7 +21,7 @@
            <i class="fas fa-shopping-basket" id="basket"></i>
        </li>
        <li>
-           <i class="far fa-user" id="profil"></i>
+        <a href="{{ path('app_logout') }}"><i class="fas fa-user-alt-slash" id="profil"></i></a>
        </li>
    </ul>
    

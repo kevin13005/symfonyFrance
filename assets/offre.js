@@ -13,3 +13,6 @@
 
  //import the menu javascript
 import './menu.js';
+
+//importez un fichier qui gere les evenements sur le projet
+import './event.js';

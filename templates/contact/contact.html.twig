@@ -3,18 +3,28 @@
 {% block title %}Hello ContactController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
 
-    {% for messageContact in app.flashes('success') %}
-    <div class="alert alert-success" role="alert">{{ messageContact }}</div>
+    
+    {% for messageContact in app.flashes('notice') %}
+    <div class="alert alert-success alert-dismissible fade show w-50 mx-auto" role="alert">
+            {{ messageContact }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
     {% endfor %}
 
-    {{ form(form) }}
+    {% for messageErrorContact in app.flashes('error') %}
+    <div class="alert alert-warning alert-dismissible fade show w-50 mx-auto" role="alert">
+            {{ messageErrorContact }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+    {% endfor %}
 
-</div>
+    {{ form_start(contactform, {'attr': {'class': 'w-50 mt-5 align-self-center'}}) }}
+        {{ form_row(contactform.description) }}
+        {{ form_row(contactform.captcha) }}
+        <button type="submit" class="btn btn-primary mt-1">Reclammation</button>
+    {{ form_end(contactform) }}
+
+
 {% endblock %}
