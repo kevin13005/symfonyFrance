@@ -60,6 +60,11 @@ class Article
      */
     private $categorie;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $price;
+
     public function __construct()
     {
         $this->updatedAt = new \DateTime();
@@ -169,4 +174,17 @@ class Article
 
         return $this;
     }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
 }

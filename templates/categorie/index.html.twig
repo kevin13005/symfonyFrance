@@ -24,22 +24,20 @@
                 </div>
 
                 <div class="col-8">
-
+                  {{ form_start(filtreform) }}
                     <div class="row mb-5">
-                        <div class="col text-center">
-                          
-                          <div class="dropdown">
-                            <button class="btn btn-danger dropdown-toggle w-50" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                              Filtrer
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                              <li><a class="dropdown-item" href="#">Action</a></li>
-                              
-                            </ul>
-                          </div>
+                        <div class="col">
+                          {{ form_row(filtreform.minPrice) }}
                         </div>
-                    </div>
+                        <div class="col">
+                          {{ form_row(filtreform.maxPrice) }}
+                        </div>
+                        <div class="col">
+                          <button type="submit" class="btn btn-danger">Rechercher</button>
+                        </div>
 
+                    </div>
+                    {{ form_end(filtreform) }}
                     <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
 
                       {% for article in articles %}
@@ -50,8 +48,8 @@
                               <h5 class="card-title">{{ article.titre }}</h5>
                               <p class="card-text">{{ article.contenu|striptags|raw }}</p>
                             </div>
-                            <div class="card-footer">
-                              <small class="text-muted">Last updated 3 mins ago</small>
+                            <div class="card-footer bg-danger text-center">
+                              <small class="text-white">{{ article.price }} E</small>
                             </div>
                           </div>
                         </div>

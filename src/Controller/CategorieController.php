@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\ArticleSearch;
 use App\Entity\Offre;
+use App\Form\ArticleSearchFormType;
 use Twig\Environment;
 use App\Repository\ArticleRepository;
 use App\Repository\CategorieRepository;
@@ -29,6 +31,11 @@ class CategorieController extends AbstractController
      */
     public function index($id, CategorieRepository $categorieRepository, Offre $offre, ArticleRepository $articleRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        //formulaire de filtre
+        $filtre = new ArticleSearch();
+        $form = $this->createForm(ArticleSearchFormType::class, $filtre);
+        $form->handleRequest($request);
+
         //on recupere les categories qui font partie de l'offre sur laquelle on a cliqué
         $catOffre = $categorieRepository->getCategorieEnFonctionIDoffre($id);
         
@@ -38,7 +45,7 @@ class CategorieController extends AbstractController
 
         //on recupere les articles de la 1ere categorie en fonction de l'argument titre, nous on choisit
         //pour l'affichage par defaut de la page d'afficher les articles de la 1ere categorie
-        $articles = $articleRepository->getArticleFirstCategorieDeLoffre($titre);
+        $articles = $articleRepository->getArticleFirstCategorieDeLoffre($titre,$filtre);
 
         //on fait la pagination avec le bundle
         $pagination = $paginator->paginate(
@@ -50,6 +57,7 @@ class CategorieController extends AbstractController
             'categorieDansOffres' => $catOffre,
             'articles' => $pagination,
             'idatransmettre'=>$id,
+            'filtreform'=>$form->createView(),
         ]));
     }
 
@@ -58,12 +66,16 @@ class CategorieController extends AbstractController
      */
     public function categorieList($id1, $idoffre, CategorieRepository $categorieRepository, ArticleRepository $articleRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $filtre = new ArticleSearch();
+        $form = $this->createForm(ArticleSearchFormType::class, $filtre);
+        $form->handleRequest($request);
+
         //on recupere les categories qui font partie de l'offre sur laquelle on a cliqué
         $catOffre = $categorieRepository->getCategorieEnFonctionIDoffre($idoffre);
 
         //on recupere les articles en fonction de la categorie sur laquelle on a cliqué
-        $articles = $articleRepository->getArticleCategorieDeLoffre($id1);
-        
+        $articles = $articleRepository->getArticleCategorieDeLoffre($id1, $filtre);
+        dump($articles);
         //la pagination
         $pagination = $paginator->paginate(
             $articles, /* query NOT result */
@@ -75,6 +87,7 @@ class CategorieController extends AbstractController
             'categorieDansOffres' => $catOffre,
             'articles' => $pagination,
             'idatransmettre'=>$idoffre,
+            'filtreform'=>$form->createView(),
         ]));
     }
 }

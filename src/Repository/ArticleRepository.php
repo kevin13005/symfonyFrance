@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use App\Entity\ArticleSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,14 +20,27 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-    public function getArticleFirstCategorieDeLoffre($titre){
+    public function getArticleFirstCategorieDeLoffre($titre, ArticleSearch $filtre){
         $query = $this->createQueryBuilder('a');
 
         $query
-            ->select('a.titre, a.contenu, a.image')
+            ->select('a.titre, a.contenu, a.image, a.price')
             ->join('a.categorie', 'c')
             ->where('c.titre = :titre')
             ->setParameter('titre', $titre);
+
+            if($filtre->getMinPrice()){
+                $query = $query
+                    ->andWhere('a.price >= :minPrice')
+                    ->setParameter('minPrice', $filtre->getMinPrice());
+
+            }
+            if($filtre->getMaxPrice()){
+                $query = $query
+                    ->andWhere('a.price <= :maxPrice')
+                    ->setParameter('maxPrice', $filtre->getMaxPrice());
+
+            }
 
         $resultat = $query->getQuery();
         return $resultat->getResult();
@@ -34,14 +48,27 @@ class ArticleRepository extends ServiceEntityRepository
         
     }
 
-    public function getArticleCategorieDeLoffre($id){
+    public function getArticleCategorieDeLoffre($id, ArticleSearch $filtre){
         $query = $this->createQueryBuilder('a');
 
         $query
-            ->select('a.titre, a.contenu, a.image')
+            ->select('a.titre, a.contenu, a.image, a.price')
             ->join('a.categorie', 'c')
             ->where('c.id = :id')
             ->setParameter('id', $id);
+
+            if($filtre->getMinPrice()){
+                $query = $query
+                    ->andWhere('a.price >= :minPrice')
+                    ->setParameter('minPrice', $filtre->getMinPrice());
+
+            }
+            if($filtre->getMaxPrice()){
+                $query = $query
+                    ->andWhere('a.price <= :maxPrice')
+                    ->setParameter('maxPrice', $filtre->getMaxPrice());
+
+            }
 
         $resultat = $query->getQuery();
         return $resultat->getResult();

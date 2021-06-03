@@ -28,6 +28,7 @@ class CategorieRepository extends ServiceEntityRepository
             ->where('o.id = :id')
             ->setParameter('id', $id);
 
+
         $resultat = $query->getQuery();
         return $resultat->getResult();
 

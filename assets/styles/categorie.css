@@ -263,3 +263,8 @@ html, body{
         cursor:pointer;
     }
 }
+
+.form-control:focus{
+    border-color: red;
+    box-shadow: red;
+}
